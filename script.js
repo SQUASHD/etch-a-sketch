@@ -2,7 +2,11 @@
 // width: ${cellSize}; height: ${cellSize}; 
 const gridContainer = document.getElementById('grid-container');
 let gridSize = 16;
-let mouseColor = 'red'
+let currentColor = 'blue'
+
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
 
 function createGrid(gridSizeVar) {
 
@@ -14,7 +18,7 @@ function createGrid(gridSizeVar) {
     
     for (var j = 0; j < gridSizeVar; j++) {
       var cell = document.createElement('div');
-      cell.setAttribute('style', `flex: auto; border: solid black 1px; background-color: white`);
+      cell.setAttribute('style', `flex: auto; background-color: white`);
       cell.classList.add('cell')
 
       row.appendChild(cell);
@@ -36,12 +40,8 @@ function addListenersToGrid() {
   const gridCells = document.querySelectorAll('.cell');
 
   gridCells.forEach((cell) => {
-    cell.addEventListener('mouseover', () => {
-      cell.style.backgroundColor = 'red';
-    });
-    cell.addEventListener('mouseout', () => {
-      cell.style.backgroundColor = 'blue';
-    });
+    cell.addEventListener('mouseover', changeColor)
+    cell.addEventListener('mousedown', changeColor)
   });
 }
 
@@ -53,7 +53,6 @@ function getNewGridSize() {
   return gridSize;
 }
 
-
 function createNewGrid() {
   var newGridSize = getNewGridSize();
   console.log(newGridSize)
@@ -61,6 +60,11 @@ function createNewGrid() {
     newGridSize = 16;
   }
   createGrid(newGridSize);
+}
+
+function changeColor(e) {
+  if (e.type === 'mouseover' && !mouseDown) return
+  e.target.style.backgroundColor = currentColor
 }
 
 const changeSizeBtn = document.getElementById('changeSizeBtn')
