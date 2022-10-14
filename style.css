@@ -1,0 +1,18 @@
+:root {
+  --grid-size: 800px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#grid-container {
+  height: var(--grid-size);
+  width: var(--grid-size);
+  display: flex;
+  flex-direction: column;
+}
