@@ -1,22 +1,42 @@
 // const cellSize = '40px'
 // width: ${cellSize}; height: ${cellSize}; 
+const DEFAULT_SIZE = 16
+const DEFAULT_MODE = 'color'
+const DEFAULT_COLOR = '#404040'
+
+
+let currentSize = DEFAULT_SIZE;
+let currentColor = DEFAULT_COLOR
+let currentMode = DEFAULT_MODE
+
+
+function setCurrentMode(newMode) {
+  activateButton(newMode)
+  currentMode = newMode
+}
+
 const gridContainer = document.getElementById('grid-container');
-let gridSize = 16;
-let currentColor = 'blue'
+const colorBtn = document.getElementById('colorBtn')
+const eraseBtn = document.getElementById('eraserBtn')
+const changeSizeBtn = document.getElementById('changeSizeBtn')
+const resetGridBtn = document.getElementById('resetGridBtn')
+
+colorBtn.onclick = () => setCurrentMode('color')
+eraserBtn.onclick = () => setCurrentMode('eraser')
 
 let mouseDown = false
 document.body.onmousedown = () => (mouseDown = true)
 document.body.onmouseup = () => (mouseDown = false)
 
-function createGrid(gridSizeVar) {
+function createGrid(size) {
 
   resetGrid(gridContainer);
 
-  for (var i = 0; i < gridSizeVar; i++) {
+  for (var i = 0; i < size; i++) {
     var row = document.createElement('div');
     row.setAttribute('style', 'display:flex; flex: auto');
     
-    for (var j = 0; j < gridSizeVar; j++) {
+    for (var j = 0; j < size; j++) {
       var cell = document.createElement('div');
       cell.setAttribute('style', `flex: auto; background-color: white`);
       cell.classList.add('cell')
@@ -45,34 +65,54 @@ function addListenersToGrid() {
   });
 }
 
-function getNewGridSize() {
-  gridSize = parseInt(prompt('Please choose a number between 1 and 100:'))
-  while (gridSize < 1 || gridSize > 100){
-    gridSize = parseInt(prompt('Please choose a number between 1 and 100:'))
+function getNewcurrentSize() {
+  currentSize = parseInt(prompt('Please choose a number between 1 and 100:'))
+  while (currentSize < 1 || currentSize > 100){
+    currentSize = parseInt(prompt('Please choose a number between 1 and 100:'))
     }
-  return gridSize;
+  return currentSize;
 }
 
 function createNewGrid() {
-  var newGridSize = getNewGridSize();
-  console.log(newGridSize)
-  if (isNaN(newGridSize)) {
-    newGridSize = 16;
+  var newcurrentSize = getNewcurrentSize();
+  console.log(newcurrentSize)
+  if (isNaN(newcurrentSize)) {
+    newcurrentSize = 16;
   }
-  createGrid(newGridSize);
+  createGrid(newcurrentSize);
 }
 
 function changeColor(e) {
   if (e.type === 'mouseover' && !mouseDown) return
-  e.target.style.backgroundColor = currentColor
+  if (currentMode === 'color') {
+    e.target.style.backgroundColor = currentColor
+  }
+  else if (currentMode === 'eraser') {
+    e.target.style.backgroundColor = '#fefefe'
+  }
 }
 
-const changeSizeBtn = document.getElementById('changeSizeBtn')
-changeSizeBtn.addEventListener('click', createNewGrid)
+function activateButton(newMode) {
+  if (currentMode === 'color') {
+    colorBtn.classList.remove('active')
+  } else if (currentMode === 'eraser') {
+    eraserBtn.classList.remove('active')
+  }
 
-const resetGridBtn = document.getElementById('resetGridBtn')
+  if (newMode === 'color') {
+    colorBtn.classList.add('active')
+  } else if (newMode === 'eraser') {
+    eraserBtn.classList.add('active')
+  }
+}
+
+
+changeSizeBtn.addEventListener('click', createNewGrid)
 resetGridBtn.addEventListener('click', () => {
-  createGrid(gridSize)
+  createGrid(currentSize)
 });
 
-createGrid(16);
+window.onload = () => {
+  createGrid(DEFAULT_SIZE)
+  activateButton(DEFAULT_MODE);
+}
