@@ -2,6 +2,7 @@
 // width: ${cellSize}; height: ${cellSize}; 
 const gridContainer = document.getElementById('grid-container');
 let gridSize = 16;
+let mouseColor = 'red'
 
 function createGrid(gridSizeVar) {
 
@@ -13,7 +14,7 @@ function createGrid(gridSizeVar) {
     
     for (var j = 0; j < gridSizeVar; j++) {
       var cell = document.createElement('div');
-      cell.setAttribute('style', `flex: auto; border: solid black 1px; background-color: blue`);
+      cell.setAttribute('style', `flex: auto; border: solid black 1px; background-color: white`);
       cell.classList.add('cell')
 
       row.appendChild(cell);
@@ -64,5 +65,10 @@ function createNewGrid() {
 
 const changeSizeBtn = document.getElementById('changeSizeBtn')
 changeSizeBtn.addEventListener('click', createNewGrid)
+
+const resetGridBtn = document.getElementById('resetGridBtn')
+resetGridBtn.addEventListener('click', () => {
+  createGrid(gridSize)
+});
 
 createGrid(16);
