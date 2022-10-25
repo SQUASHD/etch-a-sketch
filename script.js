@@ -9,6 +9,9 @@ let currentSize = DEFAULT_SIZE;
 let currentColor = DEFAULT_COLOR
 let currentMode = DEFAULT_MODE
 
+function setCurrentColor(newColor) {
+  currentColor = newColor
+}
 
 function setCurrentMode(newMode) {
   activateButton(newMode)
@@ -16,6 +19,7 @@ function setCurrentMode(newMode) {
 }
 
 const gridContainer = document.getElementById('grid-container');
+const colorPicker = document.getElementById('colorPicker')
 const colorBtn = document.getElementById('colorBtn')
 const eraseBtn = document.getElementById('eraserBtn')
 const resetGridBtn = document.getElementById('resetGridBtn')
@@ -29,6 +33,7 @@ gridSizeSlider.addEventListener('input', () => {
   createGrid(gridSizeSlider.value)
 })
 
+colorPicker.oninput = (e) => setCurrentColor(e.target.value)
 colorBtn.onclick = () => setCurrentMode('color')
 eraserBtn.onclick = () => setCurrentMode('eraser')
 
