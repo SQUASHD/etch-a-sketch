@@ -20,6 +20,14 @@ const colorBtn = document.getElementById('colorBtn')
 const eraseBtn = document.getElementById('eraserBtn')
 const changeSizeBtn = document.getElementById('changeSizeBtn')
 const resetGridBtn = document.getElementById('resetGridBtn')
+const gridSizeSlider = document.querySelector("#gridSizeSlider");
+const gridSizeOutput = document.querySelector(".gridSize-output");
+
+gridSizeOutput.textContent = gridSizeSlider.value;
+
+gridSizeSlider.addEventListener("input", () => {
+  gridSizeOutput.textContent = gridSizeSlider.value;
+});
 
 colorBtn.onclick = () => setCurrentMode('color')
 eraserBtn.onclick = () => setCurrentMode('eraser')

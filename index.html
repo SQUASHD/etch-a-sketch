@@ -16,6 +16,16 @@
 			<button id="eraserBtn">Eraser</button>
 			<button id="changeSizeBtn">Change Grid Size</button>
 			<button id="resetGridBtn">Clear</button>
+			<label for="gridSize">Choose a Grid Size</label>
+			<input
+				type="range"
+				name="gridSize"
+				id="gridSizeSlider"
+				min="1"
+				max="100"
+				step="1"
+				value="10" />
+			<output class="gridSize-output" for="gridSize"></output>
 		</div>
 		<div id="grid-container"></div>
 	</div>
