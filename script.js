@@ -18,23 +18,23 @@ function setCurrentMode(newMode) {
 const gridContainer = document.getElementById('grid-container');
 const colorBtn = document.getElementById('colorBtn')
 const eraseBtn = document.getElementById('eraserBtn')
-const changeSizeBtn = document.getElementById('changeSizeBtn')
 const resetGridBtn = document.getElementById('resetGridBtn')
-const gridSizeSlider = document.querySelector("#gridSizeSlider");
-const gridSizeOutput = document.querySelector(".gridSize-output");
+const gridSizeSlider = document.getElementById('gridSizeSlider')
+const gridSizeSliderOutput = document.getElementById('gridSizeSlider_output')
 
-gridSizeOutput.textContent = gridSizeSlider.value;
+gridSizeSliderOutput.textContent = gridSizeSlider.value
 
-gridSizeSlider.addEventListener("input", () => {
-  gridSizeOutput.textContent = gridSizeSlider.value;
-});
+gridSizeSlider.addEventListener('input', () => {
+  gridSizeSliderOutput.textContent = gridSizeSlider.value
+  createGrid(gridSizeSlider.value)
+})
 
 colorBtn.onclick = () => setCurrentMode('color')
 eraserBtn.onclick = () => setCurrentMode('eraser')
 
 let mouseDown = false
-document.body.onmousedown = () => (mouseDown = true)
-document.body.onmouseup = () => (mouseDown = false)
+gridContainer.onmousedown = () => (mouseDown = true)
+gridContainer.onmouseup = () => (mouseDown = false)
 
 function createGrid(size) {
 
@@ -73,23 +73,6 @@ function addListenersToGrid() {
   });
 }
 
-function getNewcurrentSize() {
-  currentSize = parseInt(prompt('Please choose a number between 1 and 100:'))
-  while (currentSize < 1 || currentSize > 100){
-    currentSize = parseInt(prompt('Please choose a number between 1 and 100:'))
-    }
-  return currentSize;
-}
-
-function createNewGrid() {
-  var newcurrentSize = getNewcurrentSize();
-  console.log(newcurrentSize)
-  if (isNaN(newcurrentSize)) {
-    newcurrentSize = 16;
-  }
-  createGrid(newcurrentSize);
-}
-
 function changeColor(e) {
   if (e.type === 'mouseover' && !mouseDown) return
   if (currentMode === 'color') {
@@ -115,9 +98,8 @@ function activateButton(newMode) {
 }
 
 
-changeSizeBtn.addEventListener('click', createNewGrid)
 resetGridBtn.addEventListener('click', () => {
-  createGrid(currentSize)
+  createGrid(gridSizeSlider.value)
 });
 
 window.onload = () => {
