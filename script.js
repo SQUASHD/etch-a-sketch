@@ -35,6 +35,7 @@ eraserBtn.onclick = () => setCurrentMode('eraser')
 let mouseDown = false
 gridContainer.onmousedown = () => (mouseDown = true)
 gridContainer.onmouseup = () => (mouseDown = false)
+gridContainer.onmouseleave = () => (mouseDown = false)
 
 function createGrid(size) {
 
