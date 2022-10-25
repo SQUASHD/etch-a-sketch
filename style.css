@@ -70,7 +70,8 @@ button.active {
   color: var(--primary-light);
 }
 
-button:hover {
+button:hover,
+input[type='color']:hover {
   transform: scale(1.05);
 }
 
@@ -90,4 +91,12 @@ input[type="range"] {
   width: 180px;
   padding: 0;
   outline: 1px solid transparent;
+}
+
+input[type='color'] {
+  -webkit-appearance: none;
+  background-color: rgba(0,0,0,0);
+  width: 60px;
+  height: 60px;
+  border: none;
 }
